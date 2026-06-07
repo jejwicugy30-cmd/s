@@ -228,7 +228,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
   color:var(--text2);cursor:pointer;transition:all .2s;white-space:nowrap;
 }
 .cat-pill.active{background:var(--accent);color:#080810;border-color:transparent}
-  /* ── SECTION HEAD ── */
+ /* ── SECTION HEAD ── */
 .sec-head{
   padding:0 16px 12px;
   display:flex;align-items:center;justify-content:space-between;
@@ -439,7 +439,80 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
   box-shadow:0 4px 20px rgba(var(--accent-rgb),.25);
 }
 .checkout-btn:active{transform:scale(.98);opacity:.9}
-  #page-chatlist{display:flex;flex-direction:column}
+/* ── ORDER PAGE ── */
+.order-body{padding:16px 16px 100px;display:flex;flex-direction:column;gap:12px}
+.field-group{
+  background:var(--glass);backdrop-filter:blur(16px);
+  border:1px solid var(--glass-border);border-radius:var(--radius-sm);overflow:hidden;
+}
+.field-title{
+  font-family:'Unbounded',sans-serif;font-size:9px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;color:var(--muted);padding:12px 14px 0;
+}
+.field-row{padding:11px 14px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:4px}
+.field-row:first-of-type{border-top:none}
+.field-label{font-size:10px;color:var(--muted);font-weight:500}
+.field-input{
+  background:transparent;border:none;outline:none;
+  color:var(--text);font-family:'Inter',sans-serif;font-size:14px;font-weight:500;width:100%;-webkit-appearance:none;
+}
+.field-input::placeholder{color:var(--muted);opacity:.7}
+.delivery-toggle{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px 14px}
+.dtog{
+  padding:12px 8px;border-radius:12px;border:1px solid var(--border);
+  text-align:center;cursor:pointer;transition:all .2s;
+}
+.dtog.active{background:rgba(var(--accent-rgb),.1);border-color:rgba(var(--accent-rgb),.3)}
+.dtog-icon{font-size:20px;display:block;margin-bottom:4px}
+.dtog-label{font-size:11px;font-weight:600;color:var(--text2)}
+.dtog.active .dtog-label{color:var(--accent)}
+.address-row{padding:11px 14px;border-top:1px solid var(--border);display:none;flex-direction:column;gap:4px}
+.address-row.visible{display:flex}
+.confirm-btn{
+  width:100%;padding:16px;
+  background:var(--accent);color:#080810;
+  border:none;border-radius:16px;
+  font-family:'Unbounded',sans-serif;font-size:13px;font-weight:700;
+  cursor:pointer;transition:opacity .2s,transform .15s;
+  box-shadow:0 4px 20px rgba(var(--accent-rgb),.25);
+}
+.confirm-btn:active{transform:scale(.98);opacity:.9}
+.confirm-btn:disabled{opacity:.4;cursor:not-allowed}
+
+/* ── SUCCESS ── */
+#page-success{align-items:center;justify-content:center;padding:40px 24px;text-align:center}
+.success-ring{
+  width:90px;height:90px;border-radius:50%;
+  background:rgba(var(--accent-rgb),.1);border:1.5px solid var(--accent);
+  display:flex;align-items:center;justify-content:center;font-size:38px;
+  margin:0 auto 22px;
+  animation:popIn .5s .2s both cubic-bezier(.34,1.56,.64,1);
+}
+@keyframes popIn{from{transform:scale(0);opacity:0}to{transform:scale(1);opacity:1}}
+.success-title{font-family:'Unbounded',sans-serif;font-size:26px;font-weight:800;letter-spacing:-.5px;margin-bottom:8px;animation:fadeUp .5s .4s both}
+.success-desc{font-size:13px;color:var(--text2);line-height:1.6;margin-bottom:26px;animation:fadeUp .5s .5s both}
+.order-num{font-family:'Unbounded',sans-serif;font-size:32px;font-weight:800;color:var(--accent);letter-spacing:-1px;animation:fadeUp .5s .6s both;margin-bottom:4px}
+.order-num-lbl{font-size:10px;color:var(--muted);letter-spacing:1.5px;text-transform:uppercase;animation:fadeUp .5s .65s both;margin-bottom:28px}
+.success-btns{animation:fadeUp .5s .75s both;width:100%;display:flex;flex-direction:column;gap:10px}
+.go-chat-btn{
+  width:100%;padding:15px;
+  background:var(--glass);backdrop-filter:blur(16px);
+  border:1px solid var(--glass-border);border-radius:16px;
+  font-family:'Unbounded',sans-serif;font-size:12px;font-weight:700;
+  color:var(--text);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;
+  transition:background .2s;
+}
+.go-chat-btn:active{background:var(--bg3)}
+.go-home-btn{
+  width:100%;padding:14px;background:transparent;
+  border:1px solid var(--border);border-radius:16px;
+  font-family:'Unbounded',sans-serif;font-size:11px;font-weight:600;
+  color:var(--muted);cursor:pointer;transition:border-color .2s;
+}
+.go-home-btn:active{border-color:var(--text2)}
+
+/* ── CHAT LIST ── */
+#page-chatlist{display:flex;flex-direction:column}
 .chat-list-items{padding:12px 16px;display:flex;flex-direction:column;gap:8px}
 .chat-list-item{
   background:var(--glass);backdrop-filter:blur(16px);
@@ -524,7 +597,7 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
   animation:typingBounce 1.2s var(--td,0s) ease-in-out infinite;
 }
 @keyframes typingBounce{0%,80%,100%{transform:translateY(0)}40%{transform:translateY(-5px)}}
-  .chat-input-bar{
+.chat-input-bar{
   padding:10px 14px 28px;border-top:1px solid var(--border);
   display:flex;align-items:flex-end;gap:9px;flex-shrink:0;
   background:var(--glass);backdrop-filter:blur(20px);
@@ -619,4 +692,590 @@ html,body{height:100%;overflow:hidden;background:var(--bg);color:var(--text);fon
       </div>
     </div>
   </div>
-  
+<div class="scroll-body">
+    <div class="cats" id="cats">
+      <div class="cat-pill active" data-cat="all">Все</div>
+      <div class="cat-pill" data-cat="disposable">Одноразовые</div>
+      <div class="cat-pill" data-cat="pod">Pod-системы</div>
+      <div class="cat-pill" data-cat="liquid">Жидкости</div>
+      <div class="cat-pill" data-cat="accessories">Аксессуары</div>
+    </div>
+
+    <div class="sec-head">
+      <h2>Каталог</h2>
+    </div>
+
+    <div class="prod-grid" id="prod-grid"></div>
+
+    <div class="law-footer">В соответствии с ФЗ № 15-ФЗ весь товар представлен в информационных целях. Мы не осуществляем дистанционную продажу никотинсодержащей продукции. Сайт и бот созданы исключительно для личных тестов.</div>
+  </div>
+
+  <div class="cart-fab hidden-fab" id="cart-fab">
+    <button class="cart-btn" id="cart-btn">
+      <div class="cart-btn-left">
+        <span class="cart-count-badge" id="cart-count">0</span>
+        Корзина
+      </div>
+      <span class="cart-total-text" id="cart-total-fab">0 ₽</span>
+    </button>
+  </div>
+</div>
+
+<!-- ══ CART ══ -->
+<div class="page hidden slide-left" id="page-cart">
+  <div class="page-header">
+    <div class="btn-back" onclick="goTo('home')">←</div>
+    <h1>Корзина</h1>
+  </div>
+  <div class="scroll-body">
+    <div class="cart-items" id="cart-items-list"></div>
+    <div id="cart-summary-block" style="padding:0 16px 14px">
+      <div class="cart-sum-card" id="cart-summary"></div>
+    </div>
+    <div class="checkout-btn-wrap" id="checkout-btn-wrap">
+      <button class="checkout-btn" onclick="goTo('order')">Перейти к оформлению →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ ORDER ══ -->
+<div class="page hidden slide-left" id="page-order">
+  <div class="page-header">
+    <div class="btn-back" onclick="goTo('cart')">←</div>
+    <h1>Оформление</h1>
+  </div>
+  <div class="scroll-body">
+    <div class="order-body">
+      <div class="field-group">
+        <div class="field-title">Контакт</div>
+        <div class="field-row">
+          <div class="field-label">Имя</div>
+          <input class="field-input" id="f-name" type="text" placeholder="Как к вам обращаться">
+        </div>
+        <div class="field-row">
+          <div class="field-label">Телефон</div>
+          <input class="field-input" id="f-phone" type="tel" placeholder="+7 (_) _--">
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field-title">Способ получения</div>
+        <div class="delivery-toggle">
+          <div class="dtog active" data-d="delivery" onclick="setDelivery('delivery')">
+            <span class="dtog-icon">🚚</span>
+            <div class="dtog-label">Доставка</div>
+          </div>
+          <div class="dtog" data-d="pickup" onclick="setDelivery('pickup')">
+            <span class="dtog-icon">🏪</span>
+            <div class="dtog-label">Самовывоз</div>
+          </div>
+        </div>
+        <div class="address-row visible" id="addr-row">
+          <div class="field-label">Адрес</div>
+          <input class="field-input" id="f-address" type="text" placeholder="Улица, дом, квартира">
+        </div>
+        <div class="field-row" id="pickup-info" style="display:none">
+          <div class="field-label">Адрес магазина</div>
+          <div style="font-size:13px;font-weight:500">ул. Арбат, 12 — Пн-Вс 10:00–22:00</div>
+        </div>
+      </div>
+      <div class="field-group">
+        <div class="field-row" style="border-top:none">
+          <div class="field-label">Комментарий (необязательно)</div>
+          <input class="field-input" id="f-comment" type="text" placeholder="Пожелания...">
+        </div>
+      </div>
+      <div class="cart-sum-card" id="order-summary-block"></div>
+      <button class="confirm-btn" id="confirm-btn" onclick="placeOrder()">Подтвердить заказ</button>
+    </div>
+  </div>
+</div>
+<!-- ══ SUCCESS ══ -->
+<div class="page hidden slide-up" id="page-success">
+  <div class="success-ring">✓</div>
+  <div class="success-title">Заказ принят!</div>
+  <div class="success-desc">Мы получили ваш заказ. Менеджер свяжется с вами в ближайшее время.</div>
+  <div class="order-num" id="success-order-num">#0000</div>
+  <div class="order-num-lbl">номер заказа</div>
+  <div class="success-btns">
+    <button class="go-chat-btn" onclick="goToChatList()">💬 Написать менеджеру</button>
+    <button class="go-home-btn" onclick="goHome()">Вернуться в магазин</button>
+  </div>
+</div>
+
+<!-- ══ CHAT LIST ══ -->
+<div class="page hidden slide-left" id="page-chatlist">
+  <div class="page-header">
+    <div class="btn-back" onclick="goTo('home')">←</div>
+    <h1>Сообщения</h1>
+  </div>
+  <div class="scroll-body">
+    <div class="admin-bar" id="admin-bar">✦ Режим менеджера — вы можете отвечать всем</div>
+    <div class="chat-list-items" id="chat-list-items"></div>
+  </div>
+</div>
+
+<!-- ══ CHAT ══ -->
+<div class="page hidden slide-left" id="page-chat">
+  <div class="chat-header">
+    <div class="btn-back" onclick="goTo('chatlist')">←</div>
+    <div class="chat-avatar" id="ch-avatar">👤</div>
+    <div>
+      <div class="chat-title" id="ch-title">Менеджер</div>
+      <div class="chat-status">● Онлайн</div>
+    </div>
+    <div class="chat-ref-badge" id="ch-ref" style="display:none"></div>
+    <div class="admin-reply-tag" id="ch-admin-tag">МЕНЕДЖЕР</div>
+  </div>
+  <div class="chat-messages" id="chat-messages"></div>
+  <div class="quick-replies" id="quick-replies">
+    <div class="qr-chip" onclick="sendQuick('Где мой заказ?')">Где мой заказ?</div>
+    <div class="qr-chip" onclick="sendQuick('Когда доставка?')">Когда доставка?</div>
+    <div class="qr-chip" onclick="sendQuick('Хочу изменить адрес')">Изменить адрес</div>
+    <div class="qr-chip" onclick="sendQuick('Отменить заказ')">Отмена заказа</div>
+  </div>
+  <div class="chat-input-bar">
+    <textarea class="chat-input" id="chat-input" placeholder="Сообщение..." rows="1"
+      oninput="autoResize(this)" onkeydown="chatKeydown(event)"></textarea>
+    <button class="send-btn" onclick="sendMessage()">➤</button>
+  </div>
+</div>
+
+<!-- floating chat btn -->
+<div class="chat-fab-btn" id="chat-fab-btn" onclick="goToChatList()">
+  💬<div class="chat-fab-dot" id="chat-fab-dot"></div>
+</div>
+
+<script>
+// ═══════════════════════════════════════════
+//  CONFIG
+// ═══════════════════════════════════════════
+const ADMIN_USER_ID = 123456789; // ← вставьте реальный Telegram ID менеджера
+
+// ═══════════════════════════════════════════
+//  PRODUCTS  (img — ссылка на ваше фото товара)
+// ═══════════════════════════════════════════
+const PRODUCTS = [
+  {id:1,cat:'disposable',brand:'LOST MARY',name:'BM5000 Манго-Персик',
+   desc:'5000 затяжек · Манго + Персик · 20мг',price:590,
+   img:'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=400&q=80',
+   emoji:'💨'},
+  {id:2,cat:'disposable',brand:'ELF BAR',name:'BC5000 Клубника-Киви',
+   desc:'5000 затяжек · Клубника + Киви · 20мг',price:650,
+   img:'https://images.unsplash.com/photo-1525385444278-b7968e087da2?w=400&q=80',
+   emoji:'🍓'},
+  {id:3,cat:'disposable',brand:'VOZOL',name:'STAR 9000 Арбуз',
+   desc:'9000 затяжек · Арбуз со льдом · 20мг',price:790,
+   img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',
+   emoji:'🍉'},
+  {id:4,cat:'disposable',brand:'OXBAR',name:'8000 Личи-Лёд',
+   desc:'8000 затяжек · Личи + Лёд · 20мг',price:720,
+   img:'https://images.unsplash.com/photo-1546173159-315724a31696?w=400&q=80',
+   emoji:'❄️'},
+  {id:5,cat:'pod',brand:'SMOK',name:'Nord Pro 45W',
+   desc:'Мощность 45W · Сменные испарители · USB-C',price:2490,
+   img:'https://images.unsplash.com/photo-1526738549149-8e07eca6c147?w=400&q=80',
+   emoji:'⚡'},
+{id:6,cat:'pod',brand:'VAPORESSO',name:'XROS 3 Mini',
+   desc:'Ультра-компактный · 1000мАч · Авто-тяга',price:1890,
+   img:'https://images.unsplash.com/photo-1544816155-12df9643f363?w=400&q=80',
+   emoji:'🔥'},
+  {id:7,cat:'liquid',brand:'HUSKY',name:'Жидкость Salt 30мл',
+   desc:'Salt Nic · 30мл · 20мг · Разные вкусы',price:390,
+   img:'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?w=400&q=80',
+   emoji:'💧'},
+  {id:8,cat:'liquid',brand:'OVERSHAKE',name:'Shake & Vape 60мл',
+   desc:'На основе VG/PG · 60мл · Под намотку',price:490,
+   img:'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&q=80',
+   emoji:'🥤'},
+  {id:9,cat:'accessories',brand:'COIL MASTER',name:'Намотка Ni80 30шт',
+   desc:'Ni80 · 30 штук · 0.3 Ом · Ø2.5мм',price:190,
+   img:'https://images.unsplash.com/photo-1518770660439-4636190af475?w=400&q=80',
+   emoji:'🔧'},
+  {id:10,cat:'accessories',brand:'COTTON BACON',name:'Вата для намотки',
+   desc:'Органический хлопок · 10г · Для всех баков',price:290,
+   img:'https://images.unsplash.com/photo-1603566234760-30b3b3b3b3b3?w=400&q=80',
+   emoji:'☁️'},
+];
+
+const CATS = {disposable:'Одноразовые',pod:'Pod-системы',liquid:'Жидкости',accessories:'Аксессуары'};
+
+// ═══════════════════════════════════════════
+//  STATE
+// ═══════════════════════════════════════════
+let cart={}, currentPage='home', deliveryType='delivery', orderNum=null, currentCat='all';
+let currentChatUser=null;
+const tg=window.Telegram?.WebApp;
+const myId=tg?.initDataUnsafe?.user?.id||null;
+const isAdmin=(myId===ADMIN_USER_ID);
+
+const chatUsers=[
+  {id:'u1001',name:'Алексей М.',avatar:'А',lastMsg:'Когда будет доставка?',time:'14:32',unread:2,ref:'#45231',
+   msgs:[{dir:'in',text:'Привет! Сделал заказ #45231',time:'14:20'},{dir:'in',text:'Когда будет доставка?',time:'14:32'}]},
+  {id:'u1002',name:'Мария К.',avatar:'М',lastMsg:'Спасибо, всё получила!',time:'12:10',unread:0,ref:'#45190',
+   msgs:[{dir:'in',text:'Здравствуйте, хочу узнать про #45190',time:'11:50'},{dir:'out',text:'Ваш заказ уже на доставке 🚚',time:'11:55'},{dir:'in',text:'Спасибо, всё получила!',time:'12:10'}]},
+  {id:'u1003',name:'Дмитрий Р.',avatar:'Д',lastMsg:'Добавьте Mango Ice пожалуйста',time:'10:05',unread:1,ref:null,
+   msgs:[{dir:'in',text:'Добавьте Mango Ice пожалуйста',time:'10:05'}]},
+];
+
+// ═══════════════════════════════════════════
+//  DISCLAIMER
+// ═══════════════════════════════════════════
+function acceptDisclaimer(){
+  const el=document.getElementById('disclaimer-overlay');
+  el.style.transition='opacity .4s ease';el.style.opacity='0';
+  setTimeout(()=>el.style.display='none',420);
+  document.getElementById('chat-fab-btn').classList.add('visible');
+}
+function rejectDisclaimer(){
+  document.getElementById('disclaimer-overlay').innerHTML=
+  <div style="text-align:center;padding:40px 24px">
+    <div style="font-size:52px;margin-bottom:20px">🚫</div>
+    <div style="font-family:'Unbounded',sans-serif;font-size:20px;font-weight:700;margin-bottom:10px">Доступ закрыт</div>
+    <div style="font-size:13px;color:rgba(248,248,248,.5);line-height:1.6">Этот магазин предназначен только для лиц старше 18 лет.</div>
+  </div>;
+}
+
+// ═══════════════════════════════════════════
+//  THEME
+// ═══════════════════════════════════════════
+let theme='dark';
+document.documentElement.setAttribute('data-theme','dark');
+function toggleTheme(){
+  theme=theme==='dark'?'light':'dark';
+  document.documentElement.setAttribute('data-theme',theme);
+  document.getElementById('theme-btn').textContent=theme==='dark'?'🌙':'☀️';
+}
+
+// ═══════════════════════════════════════════
+//  INIT
+// ═══════════════════════════════════════════
+if(tg){tg.ready();tg.expand();tg.setHeaderColor('#080810');tg.setBackgroundColor('#080810');}
+renderProducts('all');
+
+// ═══════════════════════════════════════════
+//  NAVIGATION
+// ═══════════════════════════════════════════
+function goTo(page){
+  document.getElementById('page-'+currentPage)?.classList.add('hidden');
+  const to=document.getElementById('page-'+page);if(!to)return;
+  to.classList.remove('hidden');currentPage=page;
+  if(page==='cart')renderCart();
+  if(page==='order')renderOrderSummary();
+  if(page==='home')updateCartFab();
+  if(page==='chatlist')renderChatList();
+}
+function goHome(){
+  ['cart','order','success','chat','chatlist'].forEach(p=>document.getElementById('page-'+p)?.classList.add('hidden'));
+  document.getElementById('page-home').classList.remove('hidden');
+  currentPage='home';updateCartFab();
+}
+function goToChatList(){goTo('chatlist');}
+
+// ═══════════════════════════════════════════
+//  PRODUCTS
+// ═══════════════════════════════════════════
+document.querySelectorAll('.cat-pill').forEach(el=>{
+  el.addEventListener('click',()=>{
+    document.querySelectorAll('.cat-pill').forEach(c=>c.classList.remove('active'));
+    el.classList.add('active');renderProducts(el.dataset.cat);
+  });
+});
+
+function renderProducts(cat){
+  currentCat=cat;
+  const grid=document.getElementById('prod-grid');
+  const filtered=cat==='all'?PRODUCTS:PRODUCTS.filter(p=>p.cat===cat);
+  grid.innerHTML='';
+  filtered.forEach((p,i)=>{
+    const qty=cart[p.id]||0;
+    const catLabel=CATS[p.cat]||p.cat;
+    const el=document.createElement('div');
+    el.className='prod-card';
+    el.style.animation=fadeUp .4s ${i*0.055}s both;
+    el.innerHTML=
+      <div class="prod-img">
+        <img src="${p.img}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.classList.remove('hidden')">
+        <div class="prod-img-placeholder hidden">${p.emoji}</div>
+        <div class="prod-cat-tag">${catLabel}</div>
+      </div>
+      <div class="prod-info">
+        <div class="prod-brand">${p.brand}</div>
+        <div class="prod-name">${p.name}</div>
+        <div class="prod-desc">${p.desc}</div>
+        <div class="prod-bottom">
+          <div class="prod-price">${p.price} ₽</div>
+          <div id="ctrl-${p.id}">${qty>0?qtyCtrl(p.id,qty):addBtn(p.id)}</div>
+        </div>
+      </div>;
+    el.addEventListener('click',e=>{if(!e.target.closest('[onclick]')&&!e.target.closest('.qty-inline')&&!e.target.closest('.btn-add'))addOne(p.id);});
+    grid.appendChild(el);
+  });
+}
+
+function addBtn(id){
+  return <button class="btn-add" onclick="addOne(${id})">+</button>;
+}
+function qtyCtrl(id,qty){
+  return <div class="qty-inline">
+    <button class="qi-btn" onclick="changeFromGrid(${id},-1)">−</button>
+    <div class="qi-num">${qty}</div>
+    <button class="qi-btn" onclick="changeFromGrid(${id},1)">+</button>
+  </div>;
+}
+
+function addOne(id){
+  cart[id]=(cart[id]||0)+1;
+  updateCtrl(id);updateCartFab();
+  const p=PRODUCTS.find(x=>x.id===id);
+  toast('✓ '+p.name);
+  tg?.HapticFeedback?.impactOccurred('light');
+}
+
+function changeFromGrid(id,delta){
+  cart[id]=(cart[id]||0)+delta;
+  if(cart[id]<=0)delete cart[id];
+  updateCtrl(id);updateCartFab();
+  tg?.HapticFeedback?.selectionChanged();
+}
+
+function updateCtrl(id){
+  const el=document.getElementById('ctrl-'+id);
+  if(!el)return;
+  const qty=cart[id]||0;
+  el.innerHTML=qty>0?qtyCtrl(id,qty):addBtn(id);
+}
+
+// ═══════════════════════════════════════════
+//  CART FAB
+// ═══════════════════════════════════════════
+function updateCartFab(){
+  const total=Object.entries(cart).reduce((s,[id,q])=>s+PRODUCTS.find(p=>p.id==id).price*q,0);
+  const count=Object.values(cart).reduce((s,q)=>s+q,0);
+  document.getElementById('cart-count').textContent=count;
+  document.getElementById('cart-total-fab').textContent=total.toLocaleString('ru')+' ₽';
+  const fab=document.getElementById('cart-fab');
+  const chatFab=document.getElementById('chat-fab-btn');
+  if(count>0){fab.classList.remove('hidden-fab');chatFab.classList.add('push-up');}
+  else{fab.classList.add('hidden-fab');chatFab.classList.remove('push-up');}
+}
+document.getElementById('cart-btn').addEventListener('click',()=>goTo('cart'));
+// ═══════════════════════════════════════════
+//  CART RENDER
+// ═══════════════════════════════════════════
+function renderCart(){
+  const list=document.getElementById('cart-items-list');
+  const items=Object.entries(cart).filter(([,q])=>q>0);
+  list.innerHTML='';
+  if(!items.length){
+    list.innerHTML=<div class="empty-state"><div class="empty-state-icon">🛒</div><h3>Корзина пуста</h3><p>Добавьте товары из каталога</p></div>;
+    document.getElementById('cart-summary-block').style.display='none';
+    document.getElementById('checkout-btn-wrap').style.display='none';
+    return;
+  }
+  document.getElementById('cart-summary-block').style.display='block';
+  document.getElementById('checkout-btn-wrap').style.display='block';
+  items.forEach(([id,qty])=>{
+    const p=PRODUCTS.find(x=>x.id==id);
+    const el=document.createElement('div');el.className='cart-item';
+    el.innerHTML=
+      <div class="ci-img">
+        <img src="${p.img}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.textContent='${p.emoji}'">
+      </div>
+      <div class="ci-info">
+        <div class="ci-name">${p.name}</div>
+        <div class="ci-price">${(p.price*qty).toLocaleString('ru')} ₽</div>
+      </div>
+      <div class="ci-qty">
+        <button class="qty-btn" onclick="cartChange(${id},-1)">−</button>
+        <div class="qty-num" id="cqty-${id}">${qty}</div>
+        <button class="qty-btn" onclick="cartChange(${id},1)">+</button>
+      </div>;
+    list.appendChild(el);
+  });
+  renderSum('cart-summary');
+}
+
+function cartChange(id,delta){
+  cart[id]=(cart[id]||0)+delta;
+  if(cart[id]<=0)delete cart[id];
+  tg?.HapticFeedback?.selectionChanged();
+  renderCart();updateCartFab();
+  updateCtrl(id);
+}
+
+function renderSum(elId){
+  const items=Object.entries(cart).filter(([,q])=>q>0);
+  const sub=items.reduce((s,[id,q])=>s+PRODUCTS.find(p=>p.id==id).price*q,0);
+  document.getElementById(elId).innerHTML=
+    <div class="sum-row"><span>Товары</span><span>${sub.toLocaleString('ru')} ₽</span></div>
+    <div class="sum-row"><span>Доставка</span><span style="color:var(--text2)">Договорная</span></div>
+    <div class="sum-row"><span>Итого</span><span class="sum-total-val">${sub.toLocaleString('ru')} ₽+</span></div>;
+}
+
+// ═══════════════════════════════════════════
+//  ORDER
+// ═══════════════════════════════════════════
+function setDelivery(type){
+  deliveryType=type;
+  document.querySelectorAll('.dtog').forEach(d=>d.classList.toggle('active',d.dataset.d===type));
+  document.getElementById('addr-row').classList.toggle('visible',type==='delivery');
+  document.getElementById('pickup-info').style.display=type==='pickup'?'flex':'none';
+  renderOrderSummary();
+}
+function renderOrderSummary(){renderSum('order-summary-block');}
+function placeOrder(){
+  const name=document.getElementById('f-name').value.trim();
+  const phone=document.getElementById('f-phone').value.trim();
+  const addr=document.getElementById('f-address').value.trim();
+  if(!name){toast('⚠️ Введите имя');return;}
+  if(!phone||phone.length<10){toast('⚠️ Введите телефон');return;}
+  if(deliveryType==='delivery'&&!addr){toast('⚠️ Введите адрес');return;}
+  const btn=document.getElementById('confirm-btn');
+  btn.disabled=true;btn.textContent='Оформляем...';
+  orderNum='#'+Math.floor(10000+Math.random()*90000);
+  document.getElementById('success-order-num').textContent=orderNum;
+  const data={
+    order:orderNum,name,phone,delivery:deliveryType,
+    address:deliveryType==='delivery'?addr:'Самовывоз',
+    comment:document.getElementById('f-comment').value,
+    items:Object.entries(cart).map(([id,q])=>{const p=PRODUCTS.find(x=>x.id==id);return{name:p.name,qty:q,price:p.price*q};}),
+  };
+  tg?.sendData(JSON.stringify(data));
+  tg?.HapticFeedback?.notificationOccurred('success');
+  const uname=tg?.initDataUnsafe?.user?.first_namename'Клиент';
+  chatUsers.unshift({id:'u_'+Date.now(),name:uname,avatar:uname[0].toUpperCase(),lastMsg:'Новый заказ '+orderNum,time:getTime(),unread:0,ref:orderNum,msgs:[{dir:'out',text:'Здравствуйте! Заказ '+orderNum,time:getTime()}]});
+  document.getElementById('chat-fab-dot').classList.add('on');
+  setTimeout(()=>goTo('success'),500);
+}
+
+// ═══════════════════════════════════════════
+//  CHAT LIST
+// ═══════════════════════════════════════════
+function renderChatList(){
+  const list=document.getElementById('chat-list-items');list.innerHTML='';
+  document.getElementById('admin-bar').style.display=isAdmin?'flex':'none';
+  if(!chatUsers.length){
+    list.innerHTML=<div class="empty-state"><div class="empty-state-icon">💬</div><h3>Нет сообщений</h3><p>Здесь появятся диалоги с менеджером</p></div>;return;
+  }
+  chatUsers.forEach(u=>{
+    const el=document.createElement('div');
+    el.className='chat-list-item'+(u.unread?' has-unread':'');
+    el.innerHTML=
+      <div class="cli-avatar">${u.avatar}</div>
+      <div class="cli-info">
+        <div class="cli-name">${u.name}${u.ref? <span style="font-size:9px;color:var(--muted)">${u.ref}</span>:''}</div>
+        <div class="cli-preview">${u.lastMsg}</div>
+      </div>
+      <div class="cli-right">
+        <div class="cli-time">${u.time}</div>
+        ${u.unread?<div class="cli-badge">${u.unread}</div>:''}
+      </div>;
+    el.addEventListener('click',()=>openChat(u));
+    list.appendChild(el);
+  });
+}
+
+// ═══════════════════════════════════════════
+//  CHAT
+// ═══════════════════════════════════════════
+function openChat(u){
+  currentChatUser=u;u.unread=0;
+  document.getElementById('ch-avatar').textContent=u.avatar;
+  document.getElementById('ch-title').textContent=isAdmin?u.name:'Менеджер Cloud Lab';
+  const ref=document.getElementById('ch-ref');
+  if(u.ref){ref.textContent=u.ref;ref.style.display='block';}else ref.style.display='none';
+  document.getElementById('ch-admin-tag').style.display=isAdmin?'flex':'none';
+  document.getElementById('quick-replies').style.display=isAdmin?'none':'flex';
+  const msgs=document.getElementById('chat-messages');msgs.innerHTML='';
+  if(!u.msgs.length&&!isAdmin){
+    const m={dir:'in',text:'Привет! Чем могу помочь?',time:getTime()};
+    u.msgs.push(m);
+  }
+  u.msgs.forEach(m=>renderMsg(m.dir,m.text,m.time));
+  msgs.scrollTop=msgs.scrollHeight;
+  goTo('chat');
+}
+
+function renderMsg(dir,text,time,isTyping=false){
+  const msgs=document.getElementById('chat-messages');
+  const div=document.createElement('div');div.className='msg '+dir;
+  if(isTyping){
+    div.id='typing-msg';
+    div.innerHTML=<div class="typing-indicator">
+      <div class="typing-dot" style="--td:0s"></div>
+      <div class="typing-dot" style="--td:.2s"></div>
+      <div class="typing-dot" style="--td:.4s"></div>
+    </div>;
+  }else{
+    div.innerHTML=<div class="msg-bubble">${text.replace(/\n/g,'<br>')}</div><div class="msg-time">${time}</div>;
+  }
+  msgs.appendChild(div);msgs.scrollTop=msgs.scrollHeight;return div;
+}
+
+const autoRep=['Понял вас! Передаю информацию менеджеру.','Спасибо за обращение! Обрабатываем 🙌','Записали! Если есть вопросы — пишите.'];
+const botRep={
+  'Где мой заказ?':['Проверяю...','Заказ передан на сборку. Доставка — сегодня до 20:00 🚚'],
+  'Когда доставка?':['Доставка сегодня. Курьер свяжется за 30 минут 📱'],
+  'Хочу изменить адрес':['Уточните новый адрес, передадим курьеру 📍'],
+  'Отменить заказ':['Уточните причину — обработаем за 5 минут ⚡'],
+};
+
+function sendMessage(){
+  const inp=document.getElementById('chat-input');
+  const text=inp.value.trim();if(!text)return;
+  renderMsg('out',text,getTime());
+  if(currentChatUser){currentChatUser.msgs.push({dir:isAdmin?'in':'out',text,time:getTime()});currentChatUser.lastMsg=text;currentChatUser.time=getTime();}
+  inp.value='';inp.style.height='42px';inp.blur();
+  document.getElementById('quick-replies').style.display='none';
+  tg?.HapticFeedback?.impactOccurred('light');
+  if(!isAdmin)simulateReply(text);
+}
+function sendQuick(text){
+  renderMsg('out',text,getTime());
+  if(currentChatUser)currentChatUser.msgs.push({dir:'out',text,time:getTime()});
+  document.getElementById('quick-replies').style.display='none';
+  tg?.HapticFeedback?.impactOccurred('light');
+  simulateReply(text);
+}
+function simulateReply(userText){
+  setTimeout(()=>{
+    renderMsg('in','',null,true);
+    const lines=botRep[userText]||[autoRep[Math.floor(Math.random()*autoRep.length)]];
+    let delay=1200;
+    lines.forEach((line,i)=>{
+      setTimeout(()=>{
+        if(i===lines.length-1)document.getElementById('typing-msg')?.remove();
+        renderMsg('in',line,getTime());
+        if(i<lines.length-1)renderMsg('in','',null,true);
+        if(currentChatUser)currentChatUser.msgs.push({dir:'in',text:line,time:getTime()});
+      },delay);delay+=1400;
+    });
+  },500);
+}
+
+function getTime(){const n=new Date();return n.getHours().toString().padStart(2,'0')+':'+n.getMinutes().toString().padStart(2,'0');}
+function chatKeydown(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}}
+function autoResize(el){el.style.height='42px';el.style.height=Math.min(el.scrollHeight,120)+'px';}
+
+// ═══════════════════════════════════════════
+//  TOAST
+// ═══════════════════════════════════════════
+let toastT;
+function toast(msg){
+  const el=document.getElementById('toast');el.textContent=msg;el.classList.add('show');
+  clearTimeout(toastT);toastT=setTimeout(()=>el.classList.remove('show'),2200);
+}
+
+document.getElementById('f-phone').addEventListener('input',function(){
+  let v=this.value.replace(/\D/g,'');
+  if(v.startsWith('8'))v='7'+v.slice(1);
+  let r='+7';
+  if(v.length>1)r+=' ('+v.slice(1,4);
+  if(v.length>=4)r+=') '+v.slice(4,7);
+  if(v.length>=7)r+='-'+v.slice(7,9);
+  if(v.length>=9)r+='-'+v.slice(9,11);
+  this.value=r;
+});
+</script>
+</body>
+</html>
