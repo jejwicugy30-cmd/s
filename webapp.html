@@ -208,11 +208,43 @@
             color: var(--primary);
         }
 
+        .category-tabs {
+            display: flex;
+            gap: 8px;
+            padding: 0 16px 16px;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .category-tabs::-webkit-scrollbar {
+            display: none;
+        }
+
+        .category-tab {
+            flex-shrink: 0;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border);
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 12px;
+            font-weight: 600;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .category-tab.active {
+            background: var(--primary);
+            color: var(--bg);
+            border-color: var(--primary);
+        }
+
         .home-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            padding: 0 16px 100px;
+            padding: 0 16px 120px;
         }
 
         .product-card {
@@ -238,6 +270,12 @@
             justify-content: center;
             font-size: 48px;
             overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .product-info {
@@ -332,7 +370,7 @@
             transform: scale(0.9);
         }
 
-        .cart-fab {
+        .bottom-bar {
             position: fixed;
             bottom: 0;
             left: 0;
@@ -341,10 +379,16 @@
             background: linear-gradient(to top, var(--bg), transparent);
             z-index: 100;
             transition: transform 0.3s;
+            display: flex;
+            gap: 10px;
         }
 
-        .cart-fab.hidden {
+        .bottom-bar.hidden {
             transform: translateY(120%);
+        }
+
+        .cart-fab {
+            flex: 1;
         }
 
         .cart-btn {
@@ -385,6 +429,25 @@
             text-align: center;
         }
 
+        .chat-fab-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            background: var(--primary-dark);
+            color: var(--text-primary);
+            border: none;
+            font-size: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        }
+
+        .chat-fab-btn:active {
+            transform: scale(0.9);
+        }
+
         .cart-items {
             padding: 16px;
             display: flex;
@@ -413,6 +476,12 @@
             font-size: 24px;
             flex-shrink: 0;
             overflow: hidden;
+        }
+
+        .cart-item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .cart-item-content {
@@ -896,6 +965,76 @@
         .toast.show {
             transform: translateX(-50%) translateY(0);
         }
+
+        /* ADMIN PANEL */
+        .admin-panel {
+            padding: 16px;
+            padding-bottom: 100px;
+        }
+
+        .add-product-form {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
+        .form-input-admin {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 13px;
+            outline: none;
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .products-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .product-item-admin {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .product-item-info {
+            flex: 1;
+        }
+
+        .product-item-name {
+            font-family: 'Unbounded', sans-serif;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .product-item-price {
+            font-size: 11px;
+            color: var(--primary);
+            margin-top: 4px;
+        }
+
+        .btn-delete {
+            padding: 6px 12px;
+            background: #ef4444;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 11px;
+            cursor: pointer;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -911,24 +1050,30 @@
             <div class="disclaimer-law">Все товары представлены в информационных целях. Мы не осуществляем дистанционную продажу никотинсодержащей продукции.</div>
         </div>
 
+        <!-- HOME PAGE -->
         <div class="page hidden" id="page-home">
             <div class="home-header">
                 <div class="home-logo">Cloud<span class="hl">Lab</span></div>
             </div>
+            <div class="category-tabs" id="category-tabs"></div>
             <div class="page-content">
                 <div class="home-grid" id="home-grid"></div>
             </div>
-            <div class="cart-fab hidden" id="cart-fab">
-                <button class="cart-btn" id="cart-btn">
-                    <div class="cart-info">
-                        <span class="cart-badge" id="cart-count">0</span>
-                        <span>Корзина</span>
-                    </div>
-                    <span id="cart-total">0 ₽</span>
-                </button>
+            <div class="bottom-bar hidden" id="bottom-bar">
+                <div class="cart-fab">
+                    <button class="cart-btn" id="cart-btn">
+                        <div class="cart-info">
+                            <span class="cart-badge" id="cart-count">0</span>
+                            <span>Корзина</span>
+                        </div>
+                        <span id="cart-total">0 ₽</span>
+                    </button>
+                </div>
+                <button class="chat-fab-btn" id="chat-fab-btn">💬</button>
             </div>
         </div>
 
+        <!-- CART PAGE -->
         <div class="page hidden" id="page-cart">
             <div class="page-header">
                 <button class="btn-back" id="back-cart">←</button>
@@ -939,6 +1084,7 @@
             </div>
         </div>
 
+        <!-- ORDER PAGE -->
         <div class="page hidden" id="page-order">
             <div class="page-header">
                 <button class="btn-back" id="back-order">←</button>
@@ -949,6 +1095,7 @@
             </div>
         </div>
 
+        <!-- SUCCESS PAGE -->
         <div class="page hidden" id="page-success">
             <div class="success-ring">✓</div>
             <div class="success-title">Заказ принят!</div>
@@ -957,6 +1104,7 @@
             <div class="success-label">номер заказа</div>
         </div>
 
+        <!-- CHAT LIST PAGE -->
         <div class="page hidden" id="page-chatlist">
             <div class="page-header">
                 <button class="btn-back" id="back-chatlist">←</button>
@@ -967,6 +1115,7 @@
             </div>
         </div>
 
+        <!-- CHAT PAGE -->
         <div class="page hidden" id="page-chat">
             <div class="chat-header">
                 <button class="btn-back" id="back-chat">←</button>
@@ -982,6 +1131,36 @@
                 <button class="send-btn" id="send-btn">➤</button>
             </div>
         </div>
+
+        <!-- ADMIN PANEL -->
+        <div class="page hidden" id="page-admin">
+            <div class="page-header">
+                <button class="btn-back" id="back-admin">←</button>
+                <h1>Панель администратора</h1>
+            </div>
+            <div class="page-content">
+                <div class="admin-panel">
+                    <div class="add-product-form">
+                        <h3 style="margin-bottom: 12px; font-family: Unbounded;">Добавить товар</h3>
+                        <input class="form-input-admin" id="admin-name" placeholder="Название" />
+                        <input class="form-input-admin" id="admin-brand" placeholder="Бренд" />
+                        <input class="form-input-admin" id="admin-price" type="number" placeholder="Цена" />
+                        <input class="form-input-admin" id="admin-category" placeholder="Категория" />
+                        <input class="form-input-admin" id="admin-emoji" placeholder="Эмодзи" />
+                        <button class="btn-primary" style="width: 100%;" id="btn-add-product">Добавить</button>
+                    </div>
+                    <h3 style="margin-bottom: 12px; font-family: Unbounded;">Товары</h3>
+                    <div class="products-list" id="products-list-admin"></div>
+                </div>
+            </div>
+            <div class="bottom-bar" style="padding: 12px 16px 28px;">
+                <div style="flex: 1;">
+                    <button class="cart-btn" onclick="goPage('chatlist')" style="background: var(--primary-dark);">
+                        💬 Сообщения
+                    </button>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="toast" id="toast"></div>
@@ -994,30 +1173,25 @@
         let currentPage = 'disclaimer';
         let currentCart = {};
         let currentChatUser = null;
+        let currentCategory = 'all';
 
-        const PRODUCTS = [
-            { id: 1, brand: 'LOST MARY', name: 'BM5000 Манго-Персик', desc: '5000 затяжек', price: 590, emoji: '💨' },
-            { id: 2, brand: 'ELF BAR', name: 'BC5000 Клубника', desc: '5000 затяжек', price: 650, emoji: '🍓' },
-            { id: 3, brand: 'VOZOL', name: 'STAR 9000 Арбуз', desc: '9000 затяжек', price: 790, emoji: '🍉' },
-            { id: 4, brand: 'OXBAR', name: '8000 Личи-Лёд', desc: '8000 затяжек', price: 720, emoji: '❄️' },
-            { id: 5, brand: 'SMOK', name: 'Nord Pro 45W', desc: 'Pod-система', price: 2490, emoji: '⚡' },
-            { id: 6, brand: 'VAPORESSO', name: 'XROS 3 Mini', desc: 'Pod-система', price: 1890, emoji: '🔥' },
-            { id: 7, brand: 'HUSKY', name: 'Жидкость Salt 30мл', desc: 'Salt Nic', price: 390, emoji: '💧' },
-            { id: 8, brand: 'OVERSHAKE', name: 'Shake & Vape 60мл', desc: 'VG/PG', price: 490, emoji: '🥤' },
-            { id: 9, brand: 'COIL MASTER', name: 'Намотка Ni80 30шт', desc: 'Аксессуар', price: 190, emoji: '🔧' },
-            { id: 10, brand: 'COTTON BACON', name: 'Вата для намотки', desc: 'Аксессуар', price: 290, emoji: '☁️' },
+        let PRODUCTS = [
+            { id: 1, cat: 'disposable', brand: 'LOST MARY', name: 'BM5000 Манго-Персик', desc: '5000 затяжек', price: 590, emoji: '💨', img: 'https://via.placeholder.com/200?text=LOST+MARY' },
+            { id: 2, cat: 'disposable', brand: 'ELF BAR', name: 'BC5000 Клубника', desc: '5000 затяжек', price: 650, emoji: '🍓', img: 'https://via.placeholder.com/200?text=ELF+BAR' },
+            { id: 3, cat: 'pod', brand: 'SMOK', name: 'Nord Pro 45W', desc: 'Pod-система', price: 2490, emoji: '⚡', img: 'https://via.placeholder.com/200?text=SMOK' },
+            { id: 4, cat: 'liquid', brand: 'HUSKY', name: 'Жидкость Salt 30мл', desc: 'Salt Nic', price: 390, emoji: '💧', img: 'https://via.placeholder.com/200?text=HUSKY' },
+            { id: 5, cat: 'accessories', brand: 'COIL', name: 'Намотка Ni80', desc: 'Аксессуар', price: 190, emoji: '🔧', img: 'https://via.placeholder.com/200?text=COIL' },
         ];
 
-        let chatUsers = [
-            { id: 'u1', name: 'Алексей М.', avatar: 'А', lastMsg: 'Когда будет доставка?', time: '14:32', unread: 2, ref: '#45231', msgs: [{ dir: 'in', text: 'Привет! Мой заказ #45231', time: '14:20' }, { dir: 'in', text: 'Когда будет доставка?', time: '14:32' }] },
-            { id: 'u2', name: 'Мария К.', avatar: 'М', lastMsg: 'Спасибо, всё получила!', time: '12:10', unread: 0, ref: '#45190', msgs: [{ dir: 'in', text: 'Заказ #45190', time: '11:50' }, { dir: 'out', text: 'Ваш заказ на доставке 🚚', time: '11:55' }, { dir: 'in', text: 'Спасибо!', time: '12:10' }] },
-        ];
+        const CATEGORIES = { all: 'Все', disposable: 'Одноразовые', pod: 'Pod-системы', liquid: 'Жидкости', accessories: 'Аксессуары' };
+
+        let chatUsers = [];
 
         if (tg) tg.ready();
 
         function acceptDisclaimer() {
             document.getElementById('disclaimer').classList.add('hidden');
-            if (isAdmin) showChatList();
+            if (isAdmin) goPage('admin');
             else showHome();
         }
 
@@ -1027,23 +1201,37 @@
 
         function showHome() {
             document.getElementById('page-home').classList.remove('hidden');
-            renderProducts();
+            renderCategories();
+            renderProducts('all');
         }
 
-        function showChatList() {
-            document.getElementById('page-chatlist').classList.remove('hidden');
-            renderChatList();
+        function renderCategories() {
+            const tabs = document.getElementById('category-tabs');
+            tabs.innerHTML = '';
+            Object.entries(CATEGORIES).forEach(([key, name]) => {
+                const btn = document.createElement('button');
+                btn.className = 'category-tab' + (key === 'all' ? ' active' : '');
+                btn.textContent = name;
+                btn.onclick = () => {
+                    document.querySelectorAll('.category-tab').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    renderProducts(key);
+                };
+                tabs.appendChild(btn);
+            });
         }
 
-        function renderProducts() {
+        function renderProducts(cat) {
+            currentCategory = cat;
             const grid = document.getElementById('home-grid');
+            const filtered = cat === 'all' ? PRODUCTS : PRODUCTS.filter(p => p.cat === cat);
             grid.innerHTML = '';
-            PRODUCTS.forEach(p => {
+            filtered.forEach(p => {
                 const qty = currentCart[p.id] || 0;
                 const div = document.createElement('div');
                 div.className = 'product-card';
                 div.innerHTML = `
-                    <div class="product-image">${p.emoji}</div>
+                    <div class="product-image"><img src="${p.img}" alt="${p.name}" onerror="this.style.display='none';this.nextElementSibling.textContent='${p.emoji}'"><div style="display:none">${p.emoji}</div></div>
                     <div class="product-info">
                         <div class="product-brand">${p.brand}</div>
                         <div class="product-name">${p.name}</div>
@@ -1090,9 +1278,9 @@
             const count = Object.values(currentCart).reduce((s, q) => s + q, 0);
             document.getElementById('cart-count').textContent = count;
             document.getElementById('cart-total').textContent = total.toLocaleString('ru') + ' ₽';
-            const fab = document.getElementById('cart-fab');
-            if (count > 0) fab.classList.remove('hidden');
-            else fab.classList.add('hidden');
+            const bar = document.getElementById('bottom-bar');
+            if (count > 0) bar.classList.remove('hidden');
+            else bar.classList.add('hidden');
         }
 
         function goPage(name) {
@@ -1101,6 +1289,7 @@
             if (name === 'order') renderOrderPage();
             if (name === 'chatlist') renderChatList();
             if (name === 'chat') renderChatPage();
+            if (name === 'admin') renderAdminPanel();
             document.getElementById('page-' + name).classList.remove('hidden');
             currentPage = name;
         }
@@ -1118,7 +1307,7 @@
                 const subtotal = p.price * qty;
                 html += `
                     <div class="cart-item">
-                        <div class="cart-item-image">${p.emoji}</div>
+                        <div class="cart-item-image"><img src="${p.img}" alt="${p.name}" onerror="this.style.display='none';this.parentElement.textContent='${p.emoji}'"></div>
                         <div class="cart-item-content">
                             <div class="cart-item-name">${p.name}</div>
                             <div class="cart-item-price">${subtotal.toLocaleString('ru')} ₽</div>
@@ -1258,7 +1447,6 @@
             const name = document.getElementById('f-name').value.trim();
             const phone = document.getElementById('f-phone').value.trim();
             const address = document.getElementById('f-address').value.trim();
-            const comment = document.getElementById('f-comment').value.trim();
 
             if (!name) {
                 showToast('⚠️ Введите имя');
@@ -1277,7 +1465,7 @@
                 return { name: p.name, qty: q, price: p.price };
             });
 
-            const data = { order: orderNum, name, phone, address, comment, items };
+            const data = { order: orderNum, name, phone, address, items };
             tg?.sendData(JSON.stringify(data));
 
             goPage('success');
@@ -1375,6 +1563,66 @@
             el.style.height = Math.min(el.scrollHeight, 100) + 'px';
         }
 
+        function renderAdminPanel() {
+            renderAdminProducts();
+        }
+
+        function renderAdminProducts() {
+            const list = document.getElementById('products-list-admin');
+            list.innerHTML = '';
+            PRODUCTS.forEach(p => {
+                const div = document.createElement('div');
+                div.className = 'product-item-admin';
+                div.innerHTML = `
+                    <div class="product-item-info">
+                        <div class="product-item-name">${p.name}</div>
+                        <div class="product-item-price">${p.price} ₽</div>
+                    </div>
+                    <button class="btn-delete" onclick="deleteProduct(${p.id})">Удалить</button>
+                `;
+                list.appendChild(div);
+            });
+        }
+
+        function deleteProduct(id) {
+            PRODUCTS = PRODUCTS.filter(p => p.id !== id);
+            renderAdminProducts();
+            showToast('✓ Товар удален');
+        }
+
+        function addProduct() {
+            const name = document.getElementById('admin-name').value.trim();
+            const brand = document.getElementById('admin-brand').value.trim();
+            const price = parseInt(document.getElementById('admin-price').value);
+            const cat = document.getElementById('admin-category').value.trim();
+            const emoji = document.getElementById('admin-emoji').value.trim();
+
+            if (!name || !brand || !price || !cat || !emoji) {
+                showToast('⚠️ Заполните все поля');
+                return;
+            }
+
+            const newProduct = {
+                id: Math.max(...PRODUCTS.map(p => p.id)) + 1,
+                cat,
+                brand,
+                name,
+                desc: `${price} ₽`,
+                price,
+                emoji,
+                img: 'https://via.placeholder.com/200?text=' + encodeURIComponent(name)
+            };
+
+            PRODUCTS.push(newProduct);
+            document.getElementById('admin-name').value = '';
+            document.getElementById('admin-brand').value = '';
+            document.getElementById('admin-price').value = '';
+            document.getElementById('admin-category').value = '';
+            document.getElementById('admin-emoji').value = '';
+            renderAdminProducts();
+            showToast('✓ Товар добавлен');
+        }
+
         function showToast(msg) {
             const toast = document.getElementById('toast');
             toast.textContent = msg;
@@ -1392,8 +1640,27 @@
         document.getElementById('cart-btn').addEventListener('click', () => goPage('cart'));
         document.getElementById('back-cart').addEventListener('click', () => goPage('home'));
         document.getElementById('back-order').addEventListener('click', () => goPage('cart'));
-        document.getElementById('back-chatlist').addEventListener('click', () => goPage('home'));
+        document.getElementById('back-chatlist').addEventListener('click', () => isAdmin ? goPage('admin') : goPage('home'));
         document.getElementById('back-chat').addEventListener('click', () => goPage('chatlist'));
+        document.getElementById('back-admin').addEventListener('click', () => goPage('home'));
+        document.getElementById('chat-fab-btn').addEventListener('click', () => {
+            if (!chatUsers.length) {
+                const adminChat = {
+                    id: 'admin_chat',
+                    name: 'Администратор',
+                    avatar: 'A',
+                    lastMsg: 'Добро пожаловать! Чем я могу вам помочь?',
+                    time: getTime(),
+                    unread: 0,
+                    msgs: [{ dir: 'in', text: 'Добро пожаловать! Чем я могу вам помочь?', time: getTime() }]
+                };
+                chatUsers = [adminChat];
+                currentChatUser = adminChat;
+            } else {
+                currentChatUser = chatUsers[0];
+            }
+            goPage('chat');
+        });
         document.getElementById('chat-input').addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
@@ -1402,6 +1669,7 @@
         });
         document.getElementById('chat-input').addEventListener('input', function() { autoResizeChat(this); });
         document.getElementById('send-btn').addEventListener('click', sendChatMessage);
+        document.getElementById('btn-add-product').addEventListener('click', addProduct);
     </script>
 </body>
 </html>
